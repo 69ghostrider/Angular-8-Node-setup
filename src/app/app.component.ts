@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'TestSetup';
+  loading = false;
   data : any = {};
   model: NgbDateStruct;
   minDate :any;
@@ -29,11 +30,20 @@ export class AppComponent {
     config.maxDate = {year: 2099, month: 12, day: 31};
    
     config.outsideDays = 'hidden';
-    this.checkBoxArray.forEach( (element) => {
-    element.selected = false;
-     });
+    // this.checkBoxArray.forEach( (element) => {
+    // element.selected = false;
+    //  });
     console.log(this.checkBoxArray)
    }
+  onScroll() {
+    console.log('scrolled!!');
+    this.loading=true;
+    setTimeout(function(){ 
+      
+     this.loading=false;
+     }, 5000);
+    
+  }
    onSave(){
      localStorage.setItem('key', 'value');
      this.dataservice.getdata().subscribe(result => {
