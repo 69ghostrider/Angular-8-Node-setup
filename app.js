@@ -3,7 +3,13 @@ const bodyparser = require('body-parser');
 const path = require('path');
 const http = require('http');
 const app = express();
-
+const session = require('express-session');
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
 //api file for interacting with MongoDB
 const api = require('./server/routes/api');
 

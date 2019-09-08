@@ -1,13 +1,14 @@
 import { NgForm } from '@angular/forms';
 import { DataService } from './../../services/data.service';
 import {NgbCalendar,NgbDatepickerConfig,NgbDateStruct,NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';;
-import { Component } from '@angular/core';
+import { Component,OnInit,AfterViewInit } from '@angular/core';
+import { NgxPermissionsService } from 'ngx-permissions';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit,AfterViewInit{
   title = 'TestSetup';
   loading = false;
   data : any = {};
@@ -25,7 +26,23 @@ export class AppComponent {
   { id: 18, name: 'Dr IQ' },
   { id: 19, name: 'Magma' },
   { id: 20, name: 'Tornado' } ] 
-   constructor(private modalService: NgbModal,private dataservice : DataService,private calendar: NgbCalendar,config: NgbDatepickerConfig){
+  ngOnInit(){
+    // console.log("INSIDE ONINIT")
+    // const perm = ["ADMIN", "EDITOR"];
+ 
+    // this.permissionsService.loadPermissions(perm);
+    
+  }
+  ngAfterViewInit(){
+   console.log("INSIDE AFTER VIEW INIT")
+    this.dataservice.getdata().subscribe(result => {
+      console.log(typeof(result))
+      console.log(result)
+      let perm :any = result;
+      this.permissionsService.loadPermissions(perm);
+     })
+  }
+   constructor(private permissionsService: NgxPermissionsService,private modalService: NgbModal,private dataservice : DataService,private calendar: NgbCalendar,config: NgbDatepickerConfig){
     config.minDate = {year: 1900, month: 1, day: 1};
     config.maxDate = {year: 2099, month: 12, day: 31};
    
@@ -46,9 +63,7 @@ export class AppComponent {
   }
    onSave(){
      localStorage.setItem('key', 'value');
-     this.dataservice.getdata().subscribe(result => {
-       console.log("Reached Component")
-     })
+    
    }
     onSubmit(f : NgForm){
       console.log(f)

@@ -6,9 +6,10 @@ import { map } from 'rxjs/operators';
 })
 export class DataService {
   result :any;
+  storage :any;
   constructor(private http:  HttpClient) { }
 
   getdata(){
-    return this.http.get("/api/users",{responseType: 'text'}).pipe(map(result => this.result = result));
+    return this.http.get("/api/users").pipe(map(result => this.result = result));
   }
 }
