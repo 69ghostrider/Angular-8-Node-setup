@@ -4,6 +4,8 @@ const path = require('path');
 const http = require('http');
 const app = express();
 const session = require('express-session');
+var config = require('./config/config.js');
+console.log(config.)
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
