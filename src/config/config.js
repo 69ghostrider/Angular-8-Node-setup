@@ -10,6 +10,6 @@ module.exports = {
     },
     FACEBOOK: {
         consumerkey: 'yourconsumerkey',
-        consumerSecrete: 'yourconsumersecrete'
+        consumerSecrete: 'yourconsumersec'
     }
 }
