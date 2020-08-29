@@ -1,23 +1,25 @@
 const express = require('express');
 const router = express.Router();
 const request = require('request');
-
+//NOTE : Can Make seperate controller functions
 //get users
-router.get('/users', (req, res) => {
+router.get('/getData', (req, res) => {
    console.log("INSIDE USERS")
    //res.send("REACHED")
-  //  request('http://dummy.restapiexample.com/api/v1/employees', function(err, res, body) {
-  //   console.log(body);
-  //  });
-  let users = [];
-  users.push('GUEST')
-  users.push('ADMIN')
-  users.push('EDITOR')
-  res.send(users);
+   request.get('https://jsonplaceholder.typicode.com/todos/1', function(err, response, body) {
+    res.send(response.body);
+   });
 });
 
-router.post('/users', (req, res) => {
-    
+router.post('/postData', (req, res) => {
+  let params = res.body;
+  request.post('https://reqres.in/api/users', params, (error, response, body) => {
+    if (error) {
+      console.error(error)
+      return
+    }
+    res.send(response)
+  })
 });
 
 router.delete('/users/:index', (req, res) => {
