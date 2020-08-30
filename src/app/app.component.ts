@@ -14,21 +14,16 @@ export class AppComponent implements OnInit{
   ngOnInit(){
     this.dataservice.getdata().subscribe(result => {
       this.getResponse = result;
-      alert(JSON.stringify(this.getResponse))
      })
   }
   
   sendPostData(){
-    alert("INSIDE POST")
     let  params = {
       "name": "morpheus",
       "job": "leader"
     }
     this.dataservice.postData(params).subscribe(result => {
       this.postResponse = result;
-      alert("Inside success")
-      console.log(this.postResponse)
-      //alert(JSON.stringify(this.postResponse))
      })
   }
    constructor(private dataservice : DataService){
